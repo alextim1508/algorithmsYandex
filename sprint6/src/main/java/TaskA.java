@@ -7,25 +7,21 @@ import java.util.StringTokenizer;
 
 public class TaskA {
 
-    public static class InputData {
-        public List<List<Integer>> adjList;
-
-        public InputData(List<List<Integer>> adjList) {
-            this.adjList = adjList;
-        }
-    }
+    private static List<List<Integer>> adjList;
 
     public static void main(String[] args) throws IOException {
-        write(read().adjList);
+        read();
+
+        write(adjList);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
         int vertices = Integer.parseInt(tokenizer.nextToken());
 
-        List<List<Integer>> adjList = new ArrayList<>(vertices);
+        adjList = new ArrayList<>(vertices);
         for (int i = 0; i < vertices; i++)
             adjList.add(new ArrayList<>(vertices * (vertices - 1)));
 
@@ -38,8 +34,6 @@ public class TaskA {
 
             adjList.get(vertex1).add(vertex2);
         }
-
-        return new InputData(adjList);
     }
 
     private static void write(List<List<Integer>> adjList) {

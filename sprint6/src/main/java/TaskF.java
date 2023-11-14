@@ -5,33 +5,26 @@ import java.util.*;
 
 public class TaskF {
 
-    public static class InputData {
-        public List<List<Integer>> adjList;
-        public int start;
-        public int finish;
+    private static List<List<Integer>> adjList;
+    private static int start;
+    private static int finish;
 
-        public InputData(List<List<Integer>> adjList, int start, int finish) {
-            this.adjList = adjList;
-            this.start = start;
-            this.finish = finish;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        boolean[] isUsed = new boolean[in.adjList.size()];
-        int[] dist = new int[in.adjList.size()];
+        boolean[] isUsed = new boolean[adjList.size()];
+        int[] dist = new int[adjList.size()];
         Arrays.fill(dist, -1);
 
-        if(in.start == in.finish) {
+        if(start == finish) {
             write(0);
             return;
         }
 
-        breadthFirstSearch(in.adjList, isUsed, in.start, in.finish, dist);
+        breadthFirstSearch(adjList, isUsed, start, finish, dist);
 
-        write(dist[in.finish]);
+        write(dist[finish]);
     }
 
     private static void breadthFirstSearch(List<List<Integer>> graph, boolean[] isUsed, int start, int finish, int[] dist) {
@@ -56,14 +49,14 @@ public class TaskF {
         }
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<List<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new ArrayList<>());
         }
@@ -81,10 +74,8 @@ public class TaskF {
         }
 
         tokenizer = new StringTokenizer(reader.readLine());
-        int start = Integer.parseInt(tokenizer.nextToken()) - 1;
-        int finish = Integer.parseInt(tokenizer.nextToken()) - 1;
-
-        return new InputData(adjList, start, finish);
+        start = Integer.parseInt(tokenizer.nextToken()) - 1;
+        finish = Integer.parseInt(tokenizer.nextToken()) - 1;
     }
 
     private static void write(int shortestDist) {

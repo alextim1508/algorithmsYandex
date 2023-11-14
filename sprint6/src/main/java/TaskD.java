@@ -6,24 +6,17 @@ import java.util.function.Consumer;
 
 public class TaskD {
 
-    public static class InputData {
-        public List<Set<Integer>> adjList;
-        public int startVertex;
-
-        public InputData(List<Set<Integer>> adjList, int startVertex) {
-            this.adjList = adjList;
-            this.startVertex = startVertex;
-        }
-    }
+    private static List<Set<Integer>> adjList;
+    private static int startVertex;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        boolean[] isUsed = new boolean[in.adjList.size()];
+        boolean[] isUsed = new boolean[adjList.size()];
 
-        List<Integer> order = new ArrayList<>(in.adjList.size());
+        List<Integer> order = new ArrayList<>(adjList.size());
 
-        breadthFirstSearch(in.adjList, isUsed, in.startVertex, order::add);
+        breadthFirstSearch(adjList, isUsed, startVertex, order::add);
 
         write(order);
     }
@@ -42,14 +35,14 @@ public class TaskD {
         }
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<Set<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new TreeSet<>(Integer::compare));
         }
@@ -64,9 +57,7 @@ public class TaskD {
             adjList.get(vertex2).add(vertex1);
         }
 
-        int startVertex = Integer.parseInt(reader.readLine()) - 1;
-
-        return new InputData(adjList, startVertex);
+        startVertex = Integer.parseInt(reader.readLine()) - 1;
     }
 
     private static void write(List<Integer> order) {

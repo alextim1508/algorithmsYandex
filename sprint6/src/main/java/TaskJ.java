@@ -5,23 +5,18 @@ import java.util.*;
 
 public class TaskJ {
 
-    public static class InputData {
-        public List<List<Integer>> adjList;
+    private static List<List<Integer>> adjList;
 
-        public InputData(List<List<Integer>> adjList) {
-            this.adjList = adjList;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int[] colors = new int[in.adjList.size()];
+        int[] colors = new int[adjList.size()];
 
         LinkedList<Integer> stack = new LinkedList<>();
-        for (int i = 0; i < in.adjList.size(); i++) {
+        for (int i = 0; i < adjList.size(); i++) {
             if(colors[i] == 0)
-                depthFirstSearch(in.adjList, i, colors, stack);
+                depthFirstSearch(adjList, i, colors, stack);
         }
 
         write(stack);
@@ -37,14 +32,14 @@ public class TaskJ {
     }
 
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<List<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new ArrayList<>());
         }
@@ -57,8 +52,6 @@ public class TaskJ {
             int vertex2 = Integer.parseInt(tokenizer.nextToken()) - 1;
             adjList.get(vertex1).add(vertex2);
         }
-
-        return new InputData(adjList);
     }
 
     private static void write(LinkedList<Integer> stack) {

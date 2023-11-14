@@ -5,22 +5,16 @@ import java.util.*;
 
 public class TaskH {
 
-    public static class InputData {
-        public List<Set<Integer>> adjList;
-
-        public InputData(List<Set<Integer>> adjList) {
-            this.adjList = adjList;
-        }
-    }
+    private static List<Set<Integer>> adjList;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int[] colors = new int[in.adjList.size()];
-        int[] entry = new int[in.adjList.size()];
-        int[] leave = new int[in.adjList.size()];
+        int[] colors = new int[adjList.size()];
+        int[] entry = new int[adjList.size()];
+        int[] leave = new int[adjList.size()];
 
-        depthFirstSearch(in.adjList, 0, colors, entry, leave);
+        depthFirstSearch(adjList, 0, colors, entry, leave);
 
         write(entry, leave);
     }
@@ -38,14 +32,14 @@ public class TaskH {
         leave[vertex] = ++time;
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<Set<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new TreeSet<>(Integer::compare));
         }
@@ -58,8 +52,6 @@ public class TaskH {
             int vertex2 = Integer.parseInt(tokenizer.nextToken()) - 1;
             adjList.get(vertex1).add(vertex2);
         }
-
-        return new InputData(adjList);
     }
 
     private static void write(int[] entry, int[] leave) {

@@ -5,23 +5,16 @@ import java.util.*;
 
 public class TaskG {
 
-    public static class InputData {
-        public List<List<Integer>> adjList;
-        public int start;
-
-        public InputData(List<List<Integer>> adjList, int start) {
-            this.adjList = adjList;
-            this.start = start;
-        }
-    }
+    private static List<List<Integer>> adjList;
+    private static int start;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int[] colors = new int[in.adjList.size()];
-        int[] distance = new int[in.adjList.size()];
+        int[] colors = new int[adjList.size()];
+        int[] distance = new int[adjList.size()];
 
-        breadthFirstSearch(in.adjList, in.start, colors, distance);
+        breadthFirstSearch(adjList, start, colors, distance);
 
         int max = getMax(distance);
 
@@ -56,14 +49,14 @@ public class TaskG {
         return max;
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<List<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new ArrayList<>());
         }
@@ -78,9 +71,7 @@ public class TaskG {
             adjList.get(vertex2).add(vertex1);
         }
 
-        int start = Integer.parseInt(reader.readLine())-1;
-
-        return new InputData(adjList, start);
+        start = Integer.parseInt(reader.readLine())-1;
     }
 
     private static void write(int maxDist) {

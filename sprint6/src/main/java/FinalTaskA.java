@@ -7,19 +7,11 @@ import java.util.*;
 
 public class FinalTaskA {
 
-    public final static String ERROR_MSG = "Oops! I did it again";
-
-    public static class InputData {
-        public List<List<Edge>> adjList;
-
-        public InputData(List<List<Edge>> adjList) {
-            this.adjList = adjList;
-        }
-
-    }
+    private final static String ERROR_MSG = "Oops! I did it again";
+    private static List<List<Edge>> adjList;
 
     public static void main(String[] args) throws IOException {
-        List<List<Edge>> adjList = read().adjList;
+        read();
 
         Graph graph = new Graph(adjList);
 
@@ -94,14 +86,14 @@ public class FinalTaskA {
         }
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertexesCount = Integer.parseInt(tokenizer.nextToken());
         int edgesCount = Integer.parseInt(tokenizer.nextToken());
 
-        List<List<Edge>> adjList = new ArrayList<>(vertexesCount);
+        adjList = new ArrayList<>(vertexesCount);
         for (int i = 0; i < vertexesCount; i++) {
             adjList.add(new ArrayList<>());
         }
@@ -117,8 +109,6 @@ public class FinalTaskA {
                 adjList.get(vertex2).add(new Edge(vertex1, weight));
             }
         }
-
-        return new InputData(adjList);
     }
 
     private static void write(int sum) {

@@ -5,19 +5,14 @@ import java.util.*;
 
 public class TaskL {
 
-    public static class InputData {
-        public List<Set<Integer>> adjList;
+    private static List<Set<Integer>> adjList;
 
-        public InputData(List<Set<Integer>> adjList) {
-            this.adjList = adjList;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        for (int i = 0; i < in.adjList.size(); i++) {
-            if (in.adjList.get(i).size() < in.adjList.size() - 1 + (in.adjList.get(i).contains(i) ? 1 : 0)) {
+        for (int i = 0; i < adjList.size(); i++) {
+            if (adjList.get(i).size() < adjList.size() - 1 + (adjList.get(i).contains(i) ? 1 : 0)) {
                 write(false);
                 return;
             }
@@ -27,14 +22,14 @@ public class TaskL {
     }
 
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
 
         int vertex = Integer.parseInt(tokenizer.nextToken());
 
-        List<Set<Integer>> adjList = new ArrayList<>(vertex);
+        adjList = new ArrayList<>(vertex);
         for (int i = 0; i < vertex; i++) {
             adjList.add(new HashSet<>());
         }
@@ -48,8 +43,6 @@ public class TaskL {
             adjList.get(vertex1).add(vertex2);
             adjList.get(vertex2).add(vertex1);
         }
-
-        return new InputData(adjList);
     }
 
     private static void write(boolean isFull) {

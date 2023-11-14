@@ -5,24 +5,20 @@ import java.util.StringTokenizer;
 
 public class TaskB {
 
-    public static class InputData {
-        public int[][] adjMatrix;
-
-        public InputData(int[][] adjMatrix) {
-            this.adjMatrix = adjMatrix;
-        }
-    }
+    private static int[][] adjMatrix;
 
     public static void main(String[] args) throws IOException {
-        write(read().adjMatrix);
+        read();
+        write(adjMatrix);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
         int vertex = Integer.parseInt(tokenizer.nextToken());
-        int[][] adjMatrix = new int[vertex][vertex];
+
+        adjMatrix = new int[vertex][vertex];
 
         int edges = Integer.parseInt(tokenizer.nextToken());
 
@@ -32,8 +28,6 @@ public class TaskB {
             int vertex2 = Integer.parseInt(tokenizer.nextToken())-1;
             adjMatrix[vertex1][vertex2] = 1;
         }
-
-        return new InputData(adjMatrix);
     }
 
     private static void write(int[][] adjMatrix) {

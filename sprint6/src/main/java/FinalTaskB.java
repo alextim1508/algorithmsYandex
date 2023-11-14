@@ -7,18 +7,12 @@ import java.util.List;
 
 public class FinalTaskB {
 
-    public static char RAILROAD_TYPE = 'R';
+    private static char RAILROAD_TYPE = 'R';
 
-    public static class InputData {
-        public String[] roadsTypes;
-
-        public InputData(String[] roadsTypes) {
-            this.roadsTypes = roadsTypes;
-        }
-    }
+    private static String[] roadsTypes;
 
     public static void main(String[] args) throws IOException {
-        String[] roadsTypes = read().roadsTypes;
+        read();
 
         List<List<Integer>> adjList = createAdjList(roadsTypes);
 
@@ -92,17 +86,15 @@ public class FinalTaskB {
         return adjList;
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int count = Integer.parseInt(reader.readLine());
 
-        String[] roadsTypes = new String[count-1];
+        roadsTypes = new String[count-1];
 
         for (int i = 0; i < roadsTypes.length; i++) {
             roadsTypes[i] = reader.readLine();
         }
-
-        return new InputData(roadsTypes);
     }
 
     private static void write(boolean isOptimal) {
