@@ -7,24 +7,18 @@ import java.util.List;
 
 public class TaskG {
 
-    private static class InputData {
-        public int target;
-        public int[] coins;
+    private static int sum;
+    private static int[] coins;
 
-        public InputData(int target, int[] coins) {
-            this.target = target;
-            this.coins = coins;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
-        Arrays.sort(in.coins);
+        read();
+
+        Arrays.sort(coins);
 
         List<String> success = new ArrayList<>();
-        search(in.target, 0, in.coins, "", success);
+        search(sum, 0, coins, "", success);
 
-        //System.out.println("success = " + success);
         write(success.size());
     }
 
@@ -41,16 +35,15 @@ public class TaskG {
             search(remain - coins[j], j, coins, combinations + coins[j] + " ", success);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int sum = Integer.parseInt(reader.readLine());
-        int[] coins = new int[Integer.parseInt(reader.readLine())];
+        sum = Integer.parseInt(reader.readLine());
+        coins = new int[Integer.parseInt(reader.readLine())];
 
         String[] str = reader.readLine().split(" ");
         for (int i = 0; i < coins.length; i++) {
             coins[i] = Integer.parseInt(str[i]);
         }
-        return new InputData(sum, coins);
     }
 
     private static void write(int size) {

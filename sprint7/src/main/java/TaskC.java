@@ -8,6 +8,9 @@ import java.util.StringTokenizer;
 
 public class TaskC {
 
+    private static int backWeight;
+    private static List<Product> products;
+
     public static class Product implements Comparable<Product> {
         public int price;
         public int weight;
@@ -26,48 +29,40 @@ public class TaskC {
         }
     }
 
-    public static class InputData {
-        public int backWeight;
-        public List<Product> products;
-
-        public InputData(int backWeight, List<Product> products) {
-            this.backWeight = backWeight;
-            this.products = products;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
-        in.products.sort(Collections.reverseOrder());
+        read();
 
-        int freeWeight = in.backWeight;
+        products.sort(Collections.reverseOrder());
+
+        int freeWeight = backWeight;
 
         long total = 0;
-        for (int i = 0; i < in.products.size(); i++) {
+        for (int i = 0; i < products.size(); i++) {
 
             if(freeWeight == 0)
                 break;
 
-            int delta = freeWeight - in.products.get(i).weight;
+            int delta = freeWeight - products.get(i).weight;
 
             if(delta >= 0) {
-                total += (long) in.products.get(i).price * in.products.get(i).weight;
-                freeWeight -= in.products.get(i).weight;
+                total += (long) products.get(i).price * products.get(i).weight;
+                freeWeight -= products.get(i).weight;
             } else {
-                total += (long) in.products.get(i).price * (in.products.get(i).weight + delta);
-                freeWeight -= (in.products.get(i).weight + delta);
+                total += (long) products.get(i).price * (products.get(i).weight + delta);
+                freeWeight -= (products.get(i).weight + delta);
             }
         }
 
         write(total);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        int backWeight = Integer.parseInt(reader.readLine());
+        backWeight = Integer.parseInt(reader.readLine());
         int productsCount = Integer.parseInt(reader.readLine());
 
-        List<Product> products = new ArrayList<>(productsCount);
+        products = new ArrayList<>(productsCount);
 
         for (int i = 0; i < productsCount; i++) {
             StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
@@ -77,7 +72,6 @@ public class TaskC {
             products.add(new Product(price, weight));
         }
 
-        return new InputData(backWeight, products);
     }
 
     private static void write(long price) {

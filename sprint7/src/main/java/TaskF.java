@@ -4,26 +4,18 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class TaskF {
-
-    private static class InputData {
-        public int target;
-        public int k;
-
-        public InputData(int target, int k) {
-            this.target = target;
-            this.k = k;
-        }
-    }
+    private static int target;
+    private static int k;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int[] dp = new int[in.target];
+        int[] dp = new int[target];
         dp[0] = 1;
 
         for (int i = 1; i < dp.length; i++) {
             int sum = 0;
-            for (int j = 0; j < in.k ; j++) {
+            for (int j = 0; j < k ; j++) {
                 if(i - 1 - j < 0)
                     break;
 
@@ -36,13 +28,12 @@ public class TaskF {
         write(dp[dp.length - 1]);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String str = reader.readLine();
         String[] s = str.split(" ");
-        int k = Integer.parseInt(s[0]);
-        int n = Integer.parseInt(s[1]);
-        return new InputData(k, n);
+        target = Integer.parseInt(s[0]);
+        k = Integer.parseInt(s[1]);
     }
 
     private static void write(int numberOfWays) {

@@ -5,22 +5,15 @@ import java.util.StringTokenizer;
 
 public class TaskE {
 
-    private static class InputData {
-        public int target;
-        public int[] coins;
-
-        public InputData(int target, int[] coins) {
-            this.target = target;
-            this.coins = coins;
-        }
-    }
+    private static int target;
+    private static int[] coins;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int[] dp = new int[in.target + 1];
+        int[] dp = new int[target + 1];
 
-        int countOfCoins = getCountOfCoins(in.target, in.coins, dp);
+        int countOfCoins = getCountOfCoins(target, coins, dp);
 
         if(countOfCoins != Integer.MAX_VALUE)
             write(countOfCoins);
@@ -48,17 +41,16 @@ public class TaskE {
         return currentMin;
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        int target = Integer.parseInt(reader.readLine());
+        target = Integer.parseInt(reader.readLine());
 
-        int[] coins = new int[Integer.parseInt(reader.readLine())];
+        coins = new int[Integer.parseInt(reader.readLine())];
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
         for (int i = 0; i < coins.length; i++)
             coins[i] = Integer.parseInt(tokenizer.nextToken());
 
-        return new InputData(target, coins);
     }
 
     private static void write(int countOfCoins) {

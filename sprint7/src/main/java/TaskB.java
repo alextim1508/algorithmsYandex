@@ -5,13 +5,7 @@ import java.util.*;
 
 public class TaskB {
 
-    public static class InputData {
-        public List<Lesson> lessons;
-
-        public InputData(List<Lesson> lessons) {
-            this.lessons = lessons;
-        }
-    }
+    private static List<Lesson> lessons;
 
     public static class Lesson {
         public double start;
@@ -24,8 +18,8 @@ public class TaskB {
     }
 
     public static void main(String[] args) throws IOException {
+        read();
 
-        List<Lesson> lessons = read().lessons;
         lessons.sort(Comparator.comparingDouble((Lesson o) -> o.finish).thenComparingDouble(o -> o.start));
 
         List<Lesson> schedule = new ArrayList<>();
@@ -41,11 +35,11 @@ public class TaskB {
         write(schedule);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         int lessonsCount = Integer.parseInt(reader.readLine());
 
-        List<Lesson> lessons = new ArrayList<>();
+        lessons = new ArrayList<>();
 
         for (int i = 0; i < lessonsCount; i++) {
             StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
@@ -53,7 +47,6 @@ public class TaskB {
                     Double.parseDouble(tokenizer.nextToken()),
                     Double.parseDouble(tokenizer.nextToken())));
         }
-        return new InputData(lessons);
     }
 
     private static void write(List<Lesson> schedule) {

@@ -5,16 +5,10 @@ import java.util.StringTokenizer;
 
 public class TaskD {
 
-    private static class InputData {
-        public int n;
-
-        public InputData(int n) {
-            this.n = n;
-        }
-    }
+    private static int n;
 
     public static void main(String[] args) throws IOException {
-        int n = read().n;
+        read();
 
         int[] dp = new int[n + 1];
         dp[0] = 1;
@@ -27,11 +21,10 @@ public class TaskD {
         write(dp[dp.length - 1]);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
-        int n = Integer.parseInt(tokenizer.nextToken());
-        return new InputData(n);
+        n = Integer.parseInt(tokenizer.nextToken());
     }
 
     private static void write(int n) {

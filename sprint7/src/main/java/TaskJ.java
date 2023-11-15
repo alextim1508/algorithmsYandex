@@ -2,71 +2,72 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.StringTokenizer;
 
 public class TaskJ {
 
+    private static int[] arr;
+
     public static void main(String[] args) throws IOException {
+        read();
+
+        int[] dp = new int[arr.length];
+
+        ArrayList<Integer>[] sequences = new ArrayList[arr.length];
+        for (int i = 0; i < sequences.length; i++) {
+            sequences[i] = new ArrayList<>();
+        }
+
+        int globalMaxId = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int maxId = findMaxId(arr, dp, i);
+            dp[i] = dp[maxId] + 1;
+
+            sequences[i].add(i);
+            if (maxId != i)
+                sequences[i].addAll(sequences[maxId]);
+
+            if (dp[i] > dp[globalMaxId])
+                globalMaxId = i;
+        }
+
+        write(dp, sequences, globalMaxId);
+    }
+
+
+
+    public static int findMaxId(int[] nums, int[] dp, int till){
+        int max_id = till;
+
+        for (int i = till-1; i >= 0; i--) {
+            if (nums[i] < nums[till] && dp[i] > dp[max_id]) {
+                max_id = i;
+            }
+        }
+
+        return max_id;
+    }
+
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder out = new StringBuilder();
 
-        int[] arr1 = new int[Integer.parseInt(reader.readLine())];
+        arr = new int[Integer.parseInt(reader.readLine())];
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
-        for (int i = 0; i < arr1.length; i++)
-            arr1[i] = Integer.parseInt(tokenizer.nextToken());
+        for (int i = 0; i < arr.length; i++)
+            arr[i] = Integer.parseInt(tokenizer.nextToken());
+    }
 
-        int[] arr2 = new int[Integer.parseInt(reader.readLine())];
-        tokenizer = new StringTokenizer(reader.readLine());
-        for (int i = 0; i < arr2.length; i++)
-            arr2[i] = Integer.parseInt(tokenizer.nextToken());
+    private static void write(int[] dp, ArrayList<Integer>[] sequences, int globalMaxId) {
+        StringBuilder out = new StringBuilder();
+        out.append(dp[globalMaxId]).append("\n");
 
+        ArrayList<Integer> result = sequences[globalMaxId];
 
-        int dp[][] = new int[arr1.length+1][arr2.length+1];
-
-        for (int i=0; i<= arr1.length; i++)  {
-            for (int j=0; j<= arr2.length; j++) {
-
-                if (i == 0 || j == 0)
-                    dp[i][j] = 0;
-                else if (arr1[i-1] == arr2[j-1])
-                    dp[i][j] = dp[i-1][j-1] + 1;
-                else
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
-            }
-        }
-
-        int nopLen = dp[arr1.length][arr2.length];
-        out.append(nopLen).append("\n");
-
-        List<Integer> answer = new ArrayList<>(nopLen);
-        List<Integer> answer2 = new ArrayList<>(nopLen);
-
-        for (int i = arr1.length, j = arr2.length; dp[i][j] != 0; ) {
-            if(arr1[i-1] == arr2[j-1]) {
-                answer.add(i);
-                answer2.add(j);
-                i--;
-                j--;
-            } else {
-                if(dp[i][j] == dp[i-1][j]) {
-                    i--;
-                } else if( dp[i][j] == dp[i][j-1] ) {
-                    j--;
-                }
-            }
-        }
-
-        for (int i = answer.size()-1; i >= 0 ; i--) {
-            out.append(answer.get(i)).append(" ");
-        }
-        out.append("\n");
-        for (int i = answer2.size()-1; i >= 0 ; i--) {
-            out.append(answer2.get(i)).append(" ");
+        for (int i = result.size() - 1; i >= 0; i--) {
+            out.append((result.get(i) + 1)).append(" ");
         }
 
         System.out.println(out);
     }
-
 }
