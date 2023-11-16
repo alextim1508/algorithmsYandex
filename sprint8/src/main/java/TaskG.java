@@ -6,29 +6,20 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 public class TaskG {
-
-    private static class InputData {
-        public int[] arr1;
-        public int[] arr2;
-
-        public InputData(int[] arr1, int[] arr2) {
-            this.arr1 = arr1;
-            this.arr2 = arr2;
-        }
-    }
-
+    private static int[] arr1;
+    private static int[] arr2;
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
         List<Integer> indexes = new ArrayList<>();
 
-        for (int i = 0; i < in.arr1.length - in.arr2.length + 1; i++) {
-            int delta = in.arr1[i] - in.arr2[0];
+        for (int i = 0; i < arr1.length - arr2.length + 1; i++) {
+            int delta = arr1[i] - arr2[0];
             boolean isOk = true;
 
-            for (int j = 1; j < in.arr2.length; j++) {
-                if (in.arr1[i + j] != in.arr2[j] + delta) {
+            for (int j = 1; j < arr2.length; j++) {
+                if (arr1[i + j] != arr2[j] + delta) {
                     isOk = false;
                     break;
                 }
@@ -42,20 +33,18 @@ public class TaskG {
     }
 
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        int[] arr1 = new int[Integer.parseInt(reader.readLine())];
+        arr1 = new int[Integer.parseInt(reader.readLine())];
         StringTokenizer tokenizer = new StringTokenizer(reader.readLine());
         for (int i = 0; i < arr1.length; i++)
             arr1[i] = Integer.parseInt(tokenizer.nextToken());
 
-        int[] arr2 = new int[Integer.parseInt(reader.readLine())];
+        arr2 = new int[Integer.parseInt(reader.readLine())];
         tokenizer = new StringTokenizer(reader.readLine());
         for (int i = 0; i < arr2.length; i++)
             arr2[i] = Integer.parseInt(tokenizer.nextToken());
-
-        return new InputData(arr1, arr2);
     }
 
     private static void write(List<Integer> indexes) {

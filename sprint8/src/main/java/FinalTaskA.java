@@ -4,17 +4,10 @@ import java.io.InputStreamReader;
 
 
 public class FinalTaskA {
-
-    private static class InputData {
-        public String[] str;
-
-        public InputData(String[] str) {
-            this.str = str;
-        }
-    }
+    private static String[] strings;
 
     public static void main(String[] args) throws IOException {
-        String[] strings = read().str;
+        read();
 
         int len = Integer.MAX_VALUE;
 
@@ -84,14 +77,13 @@ public class FinalTaskA {
         }
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] str = new String[Integer.parseInt(reader.readLine())];
-        for (int i = 0; i < str.length; i++) {
-            str[i] = reader.readLine();
+        strings = new String[Integer.parseInt(reader.readLine())];
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = reader.readLine();
         }
-        return new InputData(str);
     }
 
     private static void write(String maxPrefix) {

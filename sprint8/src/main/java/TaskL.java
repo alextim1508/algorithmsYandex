@@ -3,17 +3,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class TaskL {
+    private static String str;
 
-    private static class InputData {
-        public String str;
-
-        public InputData(String str) {
-            this.str = str;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        String str = read().str;
+        read();
 
         int[] prefixFunction = prefixFunction(str.toCharArray());
         write(prefixFunction);
@@ -32,11 +26,9 @@ public class TaskL {
         return dp;
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String str = reader.readLine();
-
-        return new InputData(str);
+        str = reader.readLine();
     }
 
     private static void write(int[] prefixFunction) {

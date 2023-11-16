@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 
 public class FinalTaskB {
 
-
-
     public static void main(String[] args) throws IOException {
 
         Trie trie = new Trie();

@@ -5,18 +5,12 @@ import java.util.Arrays;
 
 public class TaskC {
 
-    private static class InputData {
-        public String str;
-
-        public InputData(String str) {
-            this.str = str;
-        }
-    }
+    private static String str;
 
     public static void main(String[] args) throws IOException {
-        String s = read().str;
+        read();
 
-        char[] chars = s.toCharArray();
+        char[] chars = str.toCharArray();
 
         Arrays.sort(chars);
 
@@ -41,9 +35,9 @@ public class TaskC {
     }
 
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        return new InputData(reader.readLine());
+        str = reader.readLine();
     }
 
     private static void write(StringBuilder res, char mid) {

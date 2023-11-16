@@ -5,22 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskK {
+    private static String s1;
+    private static String s2;
 
-    private static class InputData {
-        public String s1;
-        public String s2;
-
-        public InputData(String s1, String s2) {
-            this.s1 = s1;
-            this.s2 = s2;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        List<Character> transform1 = transform(in.s1.toCharArray());
-        List<Character> transform2 = transform(in.s2.toCharArray());
+        List<Character> transform1 = transform(s1.toCharArray());
+        List<Character> transform2 = transform(s2.toCharArray());
 
         int i = 0;
         for (; i < transform1.size() && i < transform2.size(); i++) {
@@ -58,13 +51,11 @@ public class TaskK {
     }
 
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String s1 = reader.readLine();
-        String s2 = reader.readLine();
-
-        return new InputData(s1, s2);
+        s1 = reader.readLine();
+        s2 = reader.readLine();
     }
 
     private static void write(int i) {

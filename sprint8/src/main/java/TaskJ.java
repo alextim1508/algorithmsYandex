@@ -7,43 +7,36 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class TaskJ {
+    private static String[] words;
+    private static String[] patterns;
 
-    private static class InputData {
-        public String[] words;
-        public String[] patterns;
-
-        public InputData(String[] words, String[] patterns) {
-            this.words = words;
-            this.patterns = patterns;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
         Trie trie = new Trie();
 
-        for (int i = 0; i < in.words.length; i++) {
-            trie.insert(in.words[i].replaceAll("[^A-Z]", ""), i);
+        for (int i = 0; i < words.length; i++) {
+            trie.insert(words[i].replaceAll("[^A-Z]", ""), i);
         }
 
         TreeSet<String> set = new TreeSet<>();
 
         StringBuilder out = new StringBuilder();
 
-        for(String pattern: in.patterns) {
+        for(String pattern: patterns) {
             set.clear();
 
 
             if(pattern.isEmpty()) {
-                set.addAll(Arrays.asList(in.words));
+                set.addAll(Arrays.asList(words));
                 set.forEach(s-> out.append(s).append(System.lineSeparator()));
 
             } else {
                 TrieNode node = trie.find(pattern);
                 if(node != null) {
                     for (int i = 0; i < node.content.size(); i++) {
-                        set.add(in.words[node.content.get(i)]);
+                        set.add(words[node.content.get(i)]);
                     }
                     set.forEach(s-> out.append(s).append(System.lineSeparator()));
                 } else {
@@ -122,19 +115,19 @@ public class TaskJ {
         }
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] words = new String[Integer.parseInt(reader.readLine())];
+        words = new String[Integer.parseInt(reader.readLine())];
         for (int i = 0; i < words.length; i++) {
             words[i] = reader.readLine();
         }
 
-        String[] patterns = new String[Integer.parseInt(reader.readLine())];
+        patterns = new String[Integer.parseInt(reader.readLine())];
         for (int i = 0; i < patterns.length; i++) {
             patterns[i] = reader.readLine();
         }
-        return new InputData(words, patterns);
+
     }
 
     private static void write(String res) {

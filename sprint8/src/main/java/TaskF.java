@@ -6,16 +6,11 @@ import java.util.Map;
 
 public class TaskF {
 
-    private static class InputData {
-        public String[] words;
+    private static String[] words;
 
-        public InputData(String[] words) {
-            this.words = words;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        String[] words = read().words;
+        read();
 
         Map<String, Integer> map = new HashMap<>();
         String mostFrequentWord = "";
@@ -46,16 +41,13 @@ public class TaskF {
         write(mostFrequentWord);
     }
 
-
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] words = new String[Integer.parseInt(reader.readLine())];
+        words = new String[Integer.parseInt(reader.readLine())];
         for (int i = 0; i < words.length; i++) {
             words[i] = reader.readLine();
         }
-
-        return new InputData(words);
     }
 
     private static void write(String word) {

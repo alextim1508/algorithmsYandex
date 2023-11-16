@@ -4,16 +4,11 @@ import java.io.InputStreamReader;
 
 public class TaskA {
 
-    private static class InputData {
-        public String[] words;
-
-        public InputData(String[] words) {
-            this.words = words;
-        }
-    }
+    private static String[] words;
 
     public static void main(String[] args) throws IOException {
-        String[] words = read().words;
+        read();
+
         String[] reverseOrder = new String[words.length];
 
         for (int i = words.length - 1; i >= 0; i--) {
@@ -23,12 +18,9 @@ public class TaskA {
         write(reverseOrder);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String[] words = reader.readLine().split(" ");
-
-        return new InputData(words);
+        words = reader.readLine().split(" ");
     }
 
     private static void write(String[] words) {

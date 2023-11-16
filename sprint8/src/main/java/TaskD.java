@@ -4,16 +4,10 @@ import java.io.InputStreamReader;
 
 public class TaskD {
 
-    private static class InputData {
-        public String[] words;
-
-        public InputData(String[] words) {
-            this.words = words;
-        }
-    }
+    private static String[] words;
 
     public static void main(String[] args) throws IOException {
-        String[] words = read().words;
+        read();
 
         int size = Integer.MAX_VALUE;
         for (String word : words) {
@@ -35,15 +29,13 @@ public class TaskD {
 
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        String[] words = new String[Integer.parseInt(reader.readLine())];
+        words = new String[Integer.parseInt(reader.readLine())];
         for (int i = 0; i < words.length; i++) {
             words[i] = reader.readLine();
         }
-
-        return new InputData(words);
     }
 
     private static void write(int maxPrefixLen) {

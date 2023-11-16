@@ -6,38 +6,28 @@ import java.util.StringTokenizer;
 
 public class TaskH {
 
-    private static class InputData {
-        public String text;
-        public String pattern;
-        public String word;
+    private static String text;
+    private static String pattern;
+    private static String word;
 
-        public InputData(String text, String pattern, String word) {
-            this.text = text;
-            this.pattern = pattern;
-            this.word = word;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
-        InputData in = read();
+        read();
 
-        int i = in.text.indexOf(in.pattern);
+        int i = text.indexOf(pattern);
         if(i != -1) {
-            in.text = in.text.replace(in.pattern, in.word);
-            i = in.text.indexOf(in.pattern, i + in.word.length());
+            text = text.replace(pattern, word);
+            i = text.indexOf(pattern, i + word.length());
         }
 
-        write(in.text);
+        write(text);
     }
 
-    private static InputData read() throws IOException {
+    private static void read() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        String text = reader.readLine();
-        String pattern = reader.readLine();
-        String word = reader.readLine();
-
-        return new InputData(text, pattern, word);
+        text = reader.readLine();
+        pattern = reader.readLine();
+        word = reader.readLine();
     }
 
     private static void write(String text) {
